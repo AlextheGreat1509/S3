@@ -2,7 +2,7 @@ package AnimalShelter.Animals;
 
 import java.util.Date;
 
-public class Dog {
+public class Dog extends Animal{
 
     private Date LastWalk;
 
@@ -17,19 +17,19 @@ public class Dog {
     private boolean NeedsWalk;
 
     public boolean isNeedsWalk() {
-        return (new Date() - this.LastWalk).Days > 0;
+        return ((new Date()).after(this.LastWalk));
     }
 
     public Dog(String name, Gender gender){
-            super(name, gender)
+            super(name, gender);
 
-        this.LastWalk = DateTime.Today;
+        this.LastWalk = new Date();
     }
 
 @Override
     public String ToString()
     {
         return super.ToString() +
-                $", last walk: {this.LastWalk.ToShortDateString()}";
+                String.format(", last walk: %s", this.LastWalk);
     }
 }
