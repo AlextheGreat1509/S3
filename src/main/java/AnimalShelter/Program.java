@@ -13,6 +13,7 @@ public class Program {
         reservation.NewCat("Fikkie", Gender.Male,"Is Fat");
         ArrayList<Animal> temp = reservation.getAnimals();
         for (Animal animal: temp){
+            System.out.println("Animal Shelter:");
             System.out.println("Animal:");
             System.out.println(animal.getName());
             String gender = animal.getGender().toString();

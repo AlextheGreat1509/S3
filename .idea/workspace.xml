@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f0c52b0-b003-452d-b9d3-884edec71fc5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/AnimalShelter/AnimalShelter.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/AnimalShelter/Animals/Dog.java" afterPath="$PROJECT_DIR$/src/main/java/AnimalShelter/Animals/Dog.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/AnimalShelter/Animals/Gender.java" afterPath="$PROJECT_DIR$/src/main/java/AnimalShelter/Animals/Gender.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AnimalShelter/Program.java" afterPath="$PROJECT_DIR$/src/main/java/AnimalShelter/Program.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -95,8 +92,8 @@
       <file leaf-file-name="Program.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/AnimalShelter/Program.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+            <state relative-caret-position="204">
+              <caret line="15" column="50" lean-forward="false" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -393,12 +390,12 @@
       <updated>1517922703322</updated>
       <workItem from="1517922705096" duration="4436000" />
       <workItem from="1519120955939" duration="831000" />
-      <workItem from="1519128791230" duration="3882000" />
+      <workItem from="1519128791230" duration="4557000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9149000" />
+    <option name="totallyTimeSpent" value="9824000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -690,8 +687,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/AnimalShelter/Program.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+        <state relative-caret-position="204">
+          <caret line="15" column="50" lean-forward="false" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
