@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Reservation
 {
-    private ArrayList<Animal> Animals = new ArrayList<Animal>();
+    public ArrayList<Animal> Animals = new ArrayList<Animal>();
 
     public ArrayList<Animal> getAnimals() {
         return Animals;

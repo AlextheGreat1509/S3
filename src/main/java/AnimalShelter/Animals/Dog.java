@@ -16,7 +16,7 @@ public class Dog extends Animal{
 
     private boolean NeedsWalk;
 
-    public boolean isNeedsWalk() {
+    public boolean getNeedsWalk() {
         return ((new Date()).after(this.LastWalk));
     }
 
