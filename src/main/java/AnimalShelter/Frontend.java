@@ -8,46 +8,125 @@ import AnimalShelter.Reservation;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Frontend extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+
+        final TextField textFieldAnimals = new TextField ();
+
+        Label species = new Label("Species: ");
+        final ComboBox comboBoxSpecies = new ComboBox();
+        comboBoxSpecies.getItems().addAll(
+                "Cat", "Dog"
+        );
+
+        Label name = new Label("Name: ");
+        final TextField textFieldName = new TextField ();
+        textFieldName.setPrefWidth(100);
+
+        Label gender = new Label("Gender: ");
+
+        final RadioButton genderMaleRB = new RadioButton("Male");
+        final RadioButton genderFemaleRB = new RadioButton("Female");
+
+        final ToggleGroup genderRB = new ToggleGroup();
+        genderMaleRB.setToggleGroup(genderRB);
+        genderFemaleRB.setToggleGroup(genderRB);
+        genderMaleRB.setSelected(true);
+
+        final HBox radioBox = new HBox(20, genderMaleRB, genderFemaleRB);
+
+        Label badHabits = new Label("Bad Habits: ");
+        final TextField textFieldbadHabits = new TextField ();
+        textFieldbadHabits.setDisable(true);
+
+        Button btnAnimal = new Button();
+
+        btnAnimal.setText("Say 'Hello World'");
+        btnAnimal.setOnAction(new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent event) {
                 Reservation reservation = new Reservation();
-                reservation.NewCat("Fikkie", Gender.Male,"Is Fat");
-                ArrayList<Animal> temp = reservation.getAnimals();
-                for (Animal animal: temp){
-                    System.out.println("Animal Shelter:");
-                    System.out.println("Animal:");
-                    System.out.println(animal.getName());
-                    String gender = animal.getGender().toString();
-                    System.out.println(gender);
+
+                if (comboBoxSpecies.getValue() == "Cat" ) {
+                    if (genderRB.getSelectedToggle() == genderMaleRB) {
+                        reservation.NewCat(textFieldName.getText(), Gender.Male, textFieldbadHabits.getText());
+                    }
+                    if(genderRB.getSelectedToggle() == genderFemaleRB){
+                        reservation.NewCat(textFieldName.getText(), Gender.Female, textFieldbadHabits.getText());
+                    }
+                    ArrayList<Animal> temp = reservation.getAnimals();
+                    for (Animal animal : temp) {
+                        System.out.println("Animal Shelter:");
+                        System.out.println("Animal:");
+                        System.out.println(animal.ToString());
+                        textFieldAnimals.setText(animal.ToString());
+                    }
+                }
+                else if(comboBoxSpecies.getValue() == "Dog"){
+                    if (genderRB.getSelectedToggle() == genderMaleRB) {
+                        reservation.NewDog(textFieldName.getText(), Gender.Male);
+                    }
+                    if(genderRB.getSelectedToggle() == genderFemaleRB){
+                        reservation.NewDog(textFieldName.getText(), Gender.Female);
+                    }
+                    ArrayList<Animal> temp = reservation.getAnimals();
+                    for (Animal animal : temp) {
+                        System.out.println("Animal Shelter:");
+                        System.out.println("Animal:");
+                        System.out.println(animal.ToString());
+                    }
                 }
             }
         });
 
-        final ComboBox comboBox = new ComboBox();
-        comboBox.getItems().addAll(
-                "Cat", "Dog"
-        );
+        comboBoxSpecies.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent event) {
+                if (comboBoxSpecies.getValue() == "Cat" ) {
+                    textFieldbadHabits.setDisable(false);
+                }
+                else {
+                    textFieldbadHabits.setDisable(true);
+                }
+            }
+        });
+
+        VBox leftMenuBox = new VBox();
+        leftMenuBox.getChildren().addAll(species, comboBoxSpecies, name, textFieldName, gender , radioBox, badHabits, textFieldbadHabits, btnAnimal);
+        leftMenuBox.setAlignment(Pos.TOP_LEFT);
+        leftMenuBox.setMaxSize(200,250);
+
+        Label animals = new Label("Animals: ");
+        textFieldAnimals.setMinWidth(350);
+        textFieldAnimals.setMinHeight(120);
+
+        VBox rightMenuBox = new VBox();
+        rightMenuBox.getChildren().addAll(animals, textFieldAnimals);
+        rightMenuBox.setAlignment(Pos.TOP_LEFT);
+        rightMenuBox.setMaxSize(400,250);
+
+        HBox fullMenuBox = new HBox(30, leftMenuBox, rightMenuBox);
 
         StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        root.getChildren().add(comboBox);
+        root.getChildren().add(fullMenuBox);
+        root.setAlignment(Pos.TOP_LEFT);
 
-        Scene scene = new Scene(root, 300, 250);
+
+        Scene scene = new Scene(root, 600, 250);
 
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
