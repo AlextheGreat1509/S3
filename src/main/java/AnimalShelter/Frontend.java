@@ -1,3 +1,5 @@
+package AnimalShelter;
+
 import AnimalShelter.Animals.Animal;
 import AnimalShelter.Animals.Cat;
 import AnimalShelter.Animals.Dog;
