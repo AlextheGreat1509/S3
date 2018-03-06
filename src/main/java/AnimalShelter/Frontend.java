@@ -6,6 +6,8 @@ import AnimalShelter.Animals.Dog;
 import AnimalShelter.Animals.Gender;
 import AnimalShelter.Reservation;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -25,7 +27,7 @@ public class Frontend extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        final TextField textFieldAnimals = new TextField ();
+        final ListView<String> listViewAnimals = new ListView<String>();
 
         Label species = new Label("Species: ");
         final ComboBox comboBoxSpecies = new ComboBox();
@@ -60,6 +62,7 @@ public class Frontend extends Application {
 
             public void handle(ActionEvent event) {
                 Reservation reservation = new Reservation();
+                ObservableList<String> itemsAnimal = FXCollections.observableArrayList();
 
                 if (comboBoxSpecies.getValue() == "Cat" ) {
                     if (genderRB.getSelectedToggle() == genderMaleRB) {
@@ -68,28 +71,25 @@ public class Frontend extends Application {
                     if(genderRB.getSelectedToggle() == genderFemaleRB){
                         reservation.NewCat(textFieldName.getText(), Gender.Female, textFieldbadHabits.getText());
                     }
-                    ArrayList<Animal> temp = reservation.getAnimals();
-                    for (Animal animal : temp) {
-                        System.out.println("Animal Shelter:");
-                        System.out.println("Animal:");
-                        System.out.println(animal.ToString());
-                        textFieldAnimals.setText(animal.ToString());
-                    }
                 }
-                else if(comboBoxSpecies.getValue() == "Dog"){
+                else if(comboBoxSpecies.getValue() == "Dog") {
                     if (genderRB.getSelectedToggle() == genderMaleRB) {
                         reservation.NewDog(textFieldName.getText(), Gender.Male);
                     }
-                    if(genderRB.getSelectedToggle() == genderFemaleRB){
+                    if (genderRB.getSelectedToggle() == genderFemaleRB) {
                         reservation.NewDog(textFieldName.getText(), Gender.Female);
                     }
-                    ArrayList<Animal> temp = reservation.getAnimals();
-                    for (Animal animal : temp) {
-                        System.out.println("Animal Shelter:");
-                        System.out.println("Animal:");
-                        System.out.println(animal.ToString());
-                    }
+
                 }
+
+                ArrayList<Animal> temp = reservation.getAnimals();
+
+                for (Animal animal : temp) {
+                    String tempAnimal = animal.toString();
+                    itemsAnimal.add(tempAnimal);
+                    System.out.println(animal.ToString());
+                }
+                listViewAnimals.setItems(itemsAnimal);
             }
         });
 
@@ -111,11 +111,11 @@ public class Frontend extends Application {
         leftMenuBox.setMaxSize(200,250);
 
         Label animals = new Label("Animals: ");
-        textFieldAnimals.setMinWidth(350);
-        textFieldAnimals.setMinHeight(120);
+        listViewAnimals.setMinWidth(350);
+        listViewAnimals.setMinHeight(120);
 
         VBox rightMenuBox = new VBox();
-        rightMenuBox.getChildren().addAll(animals, textFieldAnimals);
+        rightMenuBox.getChildren().addAll(animals, listViewAnimals);
         rightMenuBox.setAlignment(Pos.TOP_LEFT);
         rightMenuBox.setMaxSize(400,250);
 
