@@ -18,9 +18,9 @@ private String BadHabits;
         this.BadHabits = badHabits;
         }
 @Override
-public String ToString()
+public String toString()
         {
-        return super.ToString() +
+        return super.toString() +
         String.format(", bad habits: %s", this.BadHabits.toLowerCase());
         }
         }

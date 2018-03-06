@@ -51,13 +51,14 @@ public class Animal
         return false;
     }
 
-    public String ToString()
+    @Override
+    public String toString()
 {
     String reserved = "not reserved";
     if (this.ReservedBy != null)
     {
         reserved = String.format( "reserved by %s", this.ReservedBy.getName());
     }
-    return String.format("%s %s %s", this.Name, this.Gender, reserved);
+    return String.format("%s, %s, %s", this.Name, this.Gender, reserved);
 }
 }

@@ -1,11 +1,10 @@
 package AnimalShelter;
 
-import AnimalShelter.Animals.Animal;
-import AnimalShelter.Animals.Cat;
-import AnimalShelter.Animals.Dog;
-import AnimalShelter.Animals.Gender;
+import AnimalShelter.Animals.*;
 import AnimalShelter.Reservation;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,7 +26,8 @@ public class Frontend extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        final ListView<String> listViewAnimals = new ListView<String>();
+        final Reservation reservation = new Reservation();
+        final ListView<Animal> listViewAnimals = new ListView<Animal>();
 
         Label species = new Label("Species: ");
         final ComboBox comboBoxSpecies = new ComboBox();
@@ -57,12 +57,10 @@ public class Frontend extends Application {
 
         Button btnAnimal = new Button();
 
-        btnAnimal.setText("Say 'Hello World'");
+        btnAnimal.setText("Add animal");
         btnAnimal.setOnAction(new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent event) {
-                Reservation reservation = new Reservation();
-                ObservableList<String> itemsAnimal = FXCollections.observableArrayList();
 
                 if (comboBoxSpecies.getValue() == "Cat" ) {
                     if (genderRB.getSelectedToggle() == genderMaleRB) {
@@ -83,13 +81,10 @@ public class Frontend extends Application {
                 }
 
                 ArrayList<Animal> temp = reservation.getAnimals();
-
+                listViewAnimals.getItems().clear();
                 for (Animal animal : temp) {
-                    String tempAnimal = animal.toString();
-                    itemsAnimal.add(tempAnimal);
-                    System.out.println(animal.ToString());
+                    listViewAnimals.getItems().add(animal);
                 }
-                listViewAnimals.setItems(itemsAnimal);
             }
         });
 
@@ -111,11 +106,45 @@ public class Frontend extends Application {
         leftMenuBox.setMaxSize(200,250);
 
         Label animals = new Label("Animals: ");
-        listViewAnimals.setMinWidth(350);
-        listViewAnimals.setMinHeight(120);
+        listViewAnimals.setMinWidth(400);
+        listViewAnimals.setMaxHeight(120);
+
+        Label reserveAnimal = new Label("Reserve animal");
+        Label reserveName = new Label("Name: ");
+        final TextField reserveText = new TextField();
+        final Button reserveBtn = new Button("Reserve selected animal");
+        reserveBtn.setDisable(true);
+
+        reserveText.textProperty().addListener(new ChangeListener<String>() {
+
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+
+                if(reserveText.getText().trim().isEmpty()){
+                    reserveBtn.setDisable(true);
+                } else{
+                    reserveBtn.setDisable(false);
+                }
+            }
+        });
+
+        reserveBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent event) {
+                Animal animal = listViewAnimals.getSelectionModel().getSelectedItem();
+                String name = reserveText.getText();
+                Reservor reservor = new Reservor(name, new Date());
+                listViewAnimals.getItems().remove(animal);
+                animal.setReservedBy(reservor);
+                listViewAnimals.getItems().add(animal);
+
+            }
+        });
+
+        HBox reserveBox = new HBox(reserveName, reserveText, reserveBtn);
 
         VBox rightMenuBox = new VBox();
-        rightMenuBox.getChildren().addAll(animals, listViewAnimals);
+        rightMenuBox.getChildren().addAll(animals, listViewAnimals, reserveAnimal, reserveBox);
         rightMenuBox.setAlignment(Pos.TOP_LEFT);
         rightMenuBox.setMaxSize(400,250);
 
